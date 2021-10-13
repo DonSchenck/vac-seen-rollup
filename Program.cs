@@ -27,7 +27,7 @@ namespace vac_seen_rollup
             {
                 var existing = await session
                     .Query<VaccinationEvent>()
-                    .SingleAsync(x => x.CountryCode == "us" && x.ShotNumber < 4);
+                    .SingleAsync(x => x.CountryCode == "us");
                 Console.WriteLine(existing.ToString());
             }
 
