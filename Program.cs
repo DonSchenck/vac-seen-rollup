@@ -24,14 +24,14 @@ namespace vac_seen_rollup
                 Console.WriteLine("Connecting using this string: {0}",cs);
                 DocumentStore docstore = DocumentStore.For(cs);
 
-                // Open a session for querying, loading, and
-                // updating documents with a backing "Identity Map"
+                // Open a session for querying
                 using (var session = docstore.QuerySession())
                 {
-                    var existing = await session
-                        .Query<VaccinationEvent>()
-                        .SingleAsync(x => x.CountryCode == "us");
-                    Console.WriteLine(existing.ToString());
+                    var events = await session.Query<VaccinationEvent>().ToListAsync();
+                    foreach(VaccinationEvent e in events)
+                    {
+                        Console.WriteLine("Vaccination Event Id: {0}", e.Id);
+                    }
                 }
 
                 // UPSERT MariaDB database
