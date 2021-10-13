@@ -1,5 +1,6 @@
 ﻿using System;
 using Marten;
+using System.Collections.Generic;
 
 namespace vac_seen_rollup
 {
@@ -27,7 +28,7 @@ namespace vac_seen_rollup
                 // Open a session for querying
                 using (var session = docstore.QuerySession())
                 {
-                    var events = await session.Query<VaccinationEvent>().ToListAsync();
+                    IReadOnlyList<VaccinationEvent> events = await session.Query<VaccinationEvent>().ToListAsync();
                     foreach(VaccinationEvent e in events)
                     {
                         Console.WriteLine("Vaccination Event Id: {0}", e.Id);
