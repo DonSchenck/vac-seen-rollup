@@ -20,7 +20,9 @@ namespace vac_seen_rollup
             // Open a session for querying, loading, and
             // updating documents
             try {
-                DocumentStore docstore = DocumentStore.For(Environment.GetEnvironmentVariable("ConnectionString"));
+                string cs = Environment.GetEnvironmentVariable("ConnectionString");
+                Console.WriteLine("Connecting using this string: {0}",cs);
+                DocumentStore docstore = DocumentStore.For(cs);
 
                 // Open a session for querying, loading, and
                 // updating documents with a backing "Identity Map"
