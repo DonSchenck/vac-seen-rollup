@@ -8,7 +8,9 @@ namespace vac_seen_rollup
         static void Main(string[] args)
         {
             Console.WriteLine("Beginning daily rollup for location: us");
-
+            Rollup();
+        }
+        async static void Rollup() {
             int vaxcount = 0;
             var yesterday = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
             // Get a count of vaccinations for the location ("us") for yesterday.
@@ -23,7 +25,7 @@ namespace vac_seen_rollup
             // updating documents with a backing "Identity Map"
             using (var session = docstore.QuerySession())
             {
-                var existing = session
+                var existing = await session
                     .Query<VaccinationEvent>()
                     .SingleAsync(x => x.CountryCode == "us" && x.ShotNumber < 4);
                 Console.WriteLine(existing.ToString());
