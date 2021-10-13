@@ -19,19 +19,23 @@ namespace vac_seen_rollup
             // Get count by reading Marten event database
             // Open a session for querying, loading, and
             // updating documents
-            DocumentStore docstore = DocumentStore.For(Environment.GetEnvironmentVariable("ConnectionString"));
+            try {
+                DocumentStore docstore = DocumentStore.For(Environment.GetEnvironmentVariable("ConnectionString"));
 
-            // Open a session for querying, loading, and
-            // updating documents with a backing "Identity Map"
-            using (var session = docstore.QuerySession())
-            {
-                var existing = await session
-                    .Query<VaccinationEvent>()
-                    .SingleAsync(x => x.CountryCode == "us");
-                Console.WriteLine(existing.ToString());
+                // Open a session for querying, loading, and
+                // updating documents with a backing "Identity Map"
+                using (var session = docstore.QuerySession())
+                {
+                    var existing = await session
+                        .Query<VaccinationEvent>()
+                        .SingleAsync(x => x.CountryCode == "us");
+                    Console.WriteLine(existing.ToString());
+                }
+
+                // UPSERT MariaDB database
+            } catch (Exception e) {
+                throw e;
             }
-
-            // UPSERT MariaDB database
         }
     }
 }
