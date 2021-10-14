@@ -31,7 +31,7 @@ namespace vac_seen_rollup
                 using (IDocumentSession session = docstore.OpenSession())
                 {
                     Console.WriteLine("About to query...");
-                    var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "us").Take(10);
+                    var events = session.Query<VaccinationEvent>().Take(10);
                     
 
 
