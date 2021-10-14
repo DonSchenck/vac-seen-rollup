@@ -2,6 +2,7 @@
 using Marten;
 using System.Collections.Generic;
 using vac_seen_todb;
+using System.Linq;
 
 namespace vac_seen_rollup
 {
@@ -27,12 +28,14 @@ namespace vac_seen_rollup
                 DocumentStore docstore = DocumentStore.For(cs);
 
                 // Open a session for querying
-                using (IQuerySession session = docstore.QuerySession())
+                using (IDocumentSession session = docstore.OpenSession())
                 {
                     Console.WriteLine("About to query...");
-                    IReadOnlyList<VaccinationEvent> events = await session.Query<VaccinationEvent>().ToListAsync();
-                  
-                    Console.WriteLine("Query done, returning {0} objects.", events.Count);
+                    var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "us").Take(10);
+                    
+
+
+                    Console.WriteLine("Query done, returning {0} objects.", events.Count());
                     foreach(VaccinationEvent e in events)
                     {
                         Console.WriteLine("Vaccination Event Id: {0}", e.Id);
