@@ -1,6 +1,6 @@
 using System;
 
-namespace vac_seen_rollup
+namespace vac_seen_todb
 {
    public class VaccinationEvent
     {

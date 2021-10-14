@@ -1,6 +1,7 @@
 ﻿using System;
 using Marten;
 using System.Collections.Generic;
+using vac_seen_todb;
 
 namespace vac_seen_rollup
 {
@@ -30,6 +31,7 @@ namespace vac_seen_rollup
                 {
                     Console.WriteLine("About to query...");
                     IReadOnlyList<VaccinationEvent> events = await session.Query<VaccinationEvent>().ToListAsync();
+                  
                     Console.WriteLine("Query done, returning {0} objects.", events.Count);
                     foreach(VaccinationEvent e in events)
                     {
