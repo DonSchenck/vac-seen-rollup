@@ -30,6 +30,7 @@ namespace vac_seen_rollup
                 {
                     Console.WriteLine("About to query...");
                     IReadOnlyList<VaccinationEvent> events = await session.Query<VaccinationEvent>().ToListAsync();
+                    Console.WriteLine("Query done, returning {0} objects.", events.Count);
                     foreach(VaccinationEvent e in events)
                     {
                         Console.WriteLine("Vaccination Event Id: {0}", e.Id);
