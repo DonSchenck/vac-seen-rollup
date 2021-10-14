@@ -31,9 +31,8 @@ namespace vac_seen_rollup
                 using (IDocumentSession session = docstore.OpenSession())
                 {
                     Console.WriteLine("About to query...");
-                    var events = session.Query<VaccinationEvent>().Take(10);
-                    
-
+                    //var events = session.Query<VaccinationEvent>().Take(10);
+                    var events = session.Query<VaccinationEvent>();
 
                     Console.WriteLine("Query done, returning {0} objects.", events.Count());
                     foreach(VaccinationEvent e in events)
