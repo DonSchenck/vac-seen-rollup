@@ -1,8 +1,8 @@
 ﻿using System;
 using Marten;
-using System.Collections.Generic;
 using vac_seen_todb;
 using System.Linq;
+using System.Threading;
 
 namespace vac_seen_rollup
 {
@@ -37,8 +37,9 @@ namespace vac_seen_rollup
                     Console.WriteLine("Query done, returning {0} objects.", events.Count());
                     foreach(VaccinationEvent e in events)
                     {
-                        Console.WriteLine("Vaccination Event Id: {0}", e.Id);
+                        //Console.WriteLine("Vaccination Event Id: {0}", e.Id);
                     }
+                    Thread.Sleep(60000);
                 }
 
                 // UPSERT MariaDB database
