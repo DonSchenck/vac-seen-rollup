@@ -26,8 +26,9 @@ namespace vac_seen_rollup
                 DocumentStore docstore = DocumentStore.For(cs);
 
                 // Open a session for querying
-                using (var session = docstore.QuerySession())
+                using (IQuerySession session = docstore.QuerySession())
                 {
+                    Console.WriteLine("About to query...");
                     IReadOnlyList<VaccinationEvent> events = await session.Query<VaccinationEvent>().ToListAsync();
                     foreach(VaccinationEvent e in events)
                     {
