@@ -13,16 +13,18 @@ namespace vac_seen_rollup
             Console.WriteLine("Beginning daily rollup for location: us");
             Rollup();
         }
-        async static void Rollup() {
+        static void Rollup() {
             int vaxcount = 0;
             var yesterday = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
             // Get a count of vaccinations for the location ("us") for yesterday.
+            string countryCode = "us";
             Console.WriteLine("{0} vaccinations for {1}", vaxcount, yesterday);
 
             // Get count by reading Marten event database
             // Open a session for querying, loading, and
             // updating documents
             try {
+                int countForYesterday = 0;
                 string cs = Environment.GetEnvironmentVariable("ConnectionString");
                 Console.WriteLine("Connecting using this string: {0}",cs);
                 DocumentStore docstore = DocumentStore.For(cs);
@@ -33,16 +35,15 @@ namespace vac_seen_rollup
                     Console.WriteLine("About to query...");
                     //var events = session.Query<VaccinationEvent>().Take(10);
                     var events = session.Query<VaccinationEvent>();
-
-                    Console.WriteLine("Query done, returning {0} objects.", events.Count());
-                    foreach(VaccinationEvent e in events)
-                    {
-                        //Console.WriteLine("Vaccination Event Id: {0}", e.Id);
-                    }
-                    Thread.Sleep(60000);
+                    countForYesterday = events.Count(); 
+                    Console.WriteLine("Query done, returning {0} objects.", countForYesterday);
                 }
 
                 // UPSERT MariaDB database
+                string insert = string.Format("INSERT INTO vaccination_summaries (location_code,reporting_date,vaccination_count) VALUES('{0}',{1},{2})", countryCode, yesterday, countForYesterday);
+                Console.WriteLine("Updating vaccination_summaries with this statement: {0}", insert);
+                Thread.Sleep(60000);
+
             } catch (Exception e) {
                 throw e;
             }
