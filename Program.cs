@@ -47,7 +47,7 @@ namespace vac_seen_rollup
                 }
 
                 // UPSERT MariaDB database
-                string upsertCmd = string.Format("INSERT INTO vaccination_summaries (location_code,reporting_date,vaccination_count) VALUES('{0}','{1}',{2}) ON DUPLICATE KEY vaccination_count = '{4}'", countryCode, yyyymmdd, countForYesterday, countForYesterday);
+                string upsertCmd = string.Format("INSERT INTO vaccination_summaries (location_code,reporting_date,vaccination_count) VALUES('{0}','{1}',{2}) ON DUPLICATE KEY vaccination_count = {3}", countryCode, yyyymmdd, countForYesterday, countForYesterday);
                 Console.WriteLine("Updating table vaccination_summaries with this statement: {0}", upsertCmd);
                 //string sampleMySqlConnectionString = "Server=mysql;User ID=root;Password=admin;Database=vaxdb";
                 using (var connection = new MySqlConnection(Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING")))
