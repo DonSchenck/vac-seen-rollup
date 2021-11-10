@@ -4,6 +4,8 @@ using vac_seen_todb;
 using System.Linq;
 using System.Threading;
 using MySqlConnector;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace vac_seen_rollup
 {
@@ -15,18 +17,19 @@ namespace vac_seen_rollup
             Rollup();
         }
         static void Rollup() {
-            int vaxcount = 0;
-            var yesterday = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
-            // Get a count of vaccinations for the location ("us") for yesterday.
+
+            string yyyymmdd = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+
+            // Get a count of vaccinations for the location ("us").
             string countryCode = "us";
-            Console.WriteLine("{0} vaccinations for {1}", vaxcount, yesterday);
 
             // Get count by reading Marten event database
             // Open a session for querying, loading, and
             // updating documents
             try {
                 int countForYesterday = 0;
-                string cs = Environment.GetEnvironmentVariable("ConnectionString");
+                //string sampleMartenConnectionString = "host=postgresql;username=postgres;password=7f986df431344327b52471df0142e520;";
+                string cs = Environment.GetEnvironmentVariable("MARTEN_CONNECTION_STRING");
                 Console.WriteLine("Connecting using this string: {0}",cs);
                 DocumentStore docstore = DocumentStore.For(cs);
 
@@ -34,26 +37,22 @@ namespace vac_seen_rollup
                 using (IDocumentSession session = docstore.OpenSession())
                 {
                     Console.WriteLine("About to query...");
-                    //var events = session.Query<VaccinationEvent>().Take(10);
-                    var events = session.Query<VaccinationEvent>();
-                    countForYesterday = events.Count(); 
+                    Task<IReadOnlyList<VaccinationEvent>> events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.ToString("yyyy-MM-dd") == yyyymmdd).ToListAsync();
+                    countForYesterday = events.Result.Count();
                     Console.WriteLine("Query done, returning {0} objects.", countForYesterday);
                 }
 
                 // UPSERT MariaDB database
-                string insert = string.Format("INSERT INTO vaccination_summaries (location_code,reporting_date,vaccination_count) VALUES('{0}','{1}',{2})", countryCode, yesterday, countForYesterday);
-                Console.WriteLine("Updating vaccination_summaries with this statement: {0}", insert);
-
-                using (var connection = new MySqlConnection("Server=mysql;User ID=root;Password=admin;Database=vaxdb"))
+                string upsertCmd = string.Format("INSERT INTO vaccination_summaries (location_code,reporting_date,vaccination_count) VALUES('{0}','{1}',{2}) ON DUPLICATE KEY vaccination_count = '{4}'", countryCode, yyyymmdd, countForYesterday, countForYesterday);
+                Console.WriteLine("Updating table vaccination_summaries with this statement: {0}", upsertCmd);
+                //string sampleMySqlConnectionString = "Server=mysql;User ID=root;Password=admin;Database=vaxdb";
+                using (var connection = new MySqlConnection(Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING")))
                 {
                     connection.Open();
 
-                    using (var command = new MySqlCommand(insert, connection))
+                    using (var command = new MySqlCommand(upsertCmd, connection))
                         command.ExecuteNonQueryAsync();
                 }
-
-                Thread.Sleep(60000);
-
             } catch (Exception e) {
                 throw e;
             }
