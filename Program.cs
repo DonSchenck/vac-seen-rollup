@@ -41,7 +41,7 @@ namespace vac_seen_rollup
 
                     Console.WriteLine("About to query...");
                     //Task<IReadOnlyList<VaccinationEvent>> events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.Year == dt.Year && x.EventTimestamp.Month == dt.Month && x.EventTimestamp.Day == dt.Day).ToListAsync();
-                    var events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.Year == dt.Year);
+                    var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "us");
 
                     countForYesterday = events.Count();
                     Console.WriteLine("Query done, returning {0} objects.", countForYesterday);
