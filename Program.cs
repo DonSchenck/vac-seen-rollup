@@ -18,7 +18,8 @@ namespace vac_seen_rollup
         }
         static void Rollup() {
 
-            string yyyymmdd = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
+            string yyyymmdd = DateTime.Now.AddDays(-1).ToString("yyyyMMdd");
+            Console.WriteLine("Today is {0}", yyyymmdd);
 
             // Get a count of vaccinations for the location ("us").
             string countryCode = "us";
@@ -37,7 +38,7 @@ namespace vac_seen_rollup
                 using (IDocumentSession session = docstore.OpenSession())
                 {
                     Console.WriteLine("About to query...");
-                    Task<IReadOnlyList<VaccinationEvent>> events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.ToString("yyyy-MM-dd") == yyyymmdd).ToListAsync();
+                    Task<IReadOnlyList<VaccinationEvent>> events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.ToString("yyyyMMdd") == yyyymmdd).ToListAsync();
                     countForYesterday = events.Result.Count();
                     Console.WriteLine("Query done, returning {0} objects.", countForYesterday);
                 }
