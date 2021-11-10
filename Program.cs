@@ -37,8 +37,11 @@ namespace vac_seen_rollup
                 // Open a session for querying
                 using (IDocumentSession session = docstore.OpenSession())
                 {
+                    DateTime dt = DateTime.Now;
+
                     Console.WriteLine("About to query...");
-                    Task<IReadOnlyList<VaccinationEvent>> events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.ToString("yyyyMMdd") == yyyymmdd).ToListAsync();
+                    Task<IReadOnlyList<VaccinationEvent>> events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.Year == dt.Year && x.EventTimestamp.Month == dt.Month && x.EventTimestamp.Day == dt.Day).ToListAsync();
+
                     countForYesterday = events.Result.Count();
                     Console.WriteLine("Query done, returning {0} objects.", countForYesterday);
                 }
