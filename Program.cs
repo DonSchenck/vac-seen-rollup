@@ -13,19 +13,19 @@ namespace vac_seen_rollup
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Beginning daily rollup for location: us");
             Rollup();
         }
         static void Rollup() {
             // Get a count of vaccinations for the location ("us").
             string countryCode = "US";
+            Console.WriteLine("Beginning daily rollup for location: {0}", countryCode);
 
             // Get count by reading Marten event database
             // Open a session for querying, loading, and
             // updating documents
             try {
                 // Update for the past 30 days
-                for (int i = -30; i == 0; i++)
+                for (int i = -30; i <= 0; i++)
                 {
                     string yyyymmdd = DateTime.Now.AddDays(i).ToString("yyyyMMdd");
                     Console.WriteLine("Today is {0}", yyyymmdd);
