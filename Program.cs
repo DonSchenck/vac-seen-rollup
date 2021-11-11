@@ -54,13 +54,6 @@ namespace vac_seen_rollup
                         //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode);
 
                         var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= dateToQuery && x.EventTimestamp < dateAfterQuery);
-                        foreach (var item in events)
-                        {
-                            Console.WriteLine("EventTimestamp {0}", item.EventTimestamp);
-                            //Console.WriteLine("EventTimestamp.Year {0}", item.EventTimestamp.Year);
-                            //Console.WriteLine("EventTimestamp.Month {0}", item.EventTimestamp.Month);
-                            //Console.WriteLine("EventTimestamp.Day {0}", item.EventTimestamp.Day);
-                        }
                         countForDate = events.Count();
                         Console.WriteLine("Query done, returning {0} objects for {1}.", countForDate, yyyymmdd);
                     }
