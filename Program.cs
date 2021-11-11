@@ -17,9 +17,6 @@ namespace vac_seen_rollup
             Rollup();
         }
         static void Rollup() {
-            string yyyymmdd = DateTime.Now.AddDays(-5).ToString("yyyyMMdd");
-            Console.WriteLine("Today is {0}", yyyymmdd);
-
             // Get a count of vaccinations for the location ("us").
             string countryCode = "US";
 
@@ -30,6 +27,9 @@ namespace vac_seen_rollup
                 // Update for the past 30 days
                 for (int i = 30; i >= 0; i--)
                 {
+                    string yyyymmdd = DateTime.Now.AddDays(i).ToString("yyyyMMdd");
+                    Console.WriteLine("Today is {0}", yyyymmdd);
+
                     int countForDate = 0;
                     //string sampleMartenConnectionString = "host=postgresql;username=postgres;password=7f986df431344327b52471df0142e520;";
                     string cs = Environment.GetEnvironmentVariable("MARTEN_CONNECTION_STRING");
@@ -42,6 +42,9 @@ namespace vac_seen_rollup
                         DateTime dt = DateTime.Now.AddDays(i);
 
                         Console.WriteLine("About to query...");
+                        Console.WriteLine("Year == {0}", dt.Year.ToString());
+                        Console.WriteLine("Month == {0}", dt.Month.ToString());
+                        Console.WriteLine("Day == {0}", dt.Day.ToString());
                         var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp.Year == dt.Year && x.EventTimestamp.Month == dt.Month && x.EventTimestamp.Day == dt.Day);
                         //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "US");
 
