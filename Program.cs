@@ -39,15 +39,16 @@ namespace vac_seen_rollup
                     // Open a session for querying
                     using (IDocumentSession session = docstore.OpenSession())
                     {
-                        DateTime dt = DateTime.Today.AddDays(i);
+                        DateTime dateToQuery = DateTime.Today.AddDays(i);
+                        DateTime dateBeforeQuery = DateTime.Today.AddDays(i).AddTicks(-1);
 
                         Console.WriteLine("About to query...");
-                        Console.WriteLine("Year == {0}", dt.Year);
-                        Console.WriteLine("Month == {0}", dt.Month);
-                        Console.WriteLine("Day == {0}", dt.Day);
-                        //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "US" && x.EventTimestamp.Year == dt.Year && x.EventTimestamp.Month == dt.Month && x.EventTimestamp.Day == dt.Day);
+                        Console.WriteLine("Year == {0}", dateToQuery.Year);
+                        Console.WriteLine("Month == {0}", dateToQuery.Month);
+                        Console.WriteLine("Day == {0}", dateToQuery.Day);
+                        //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "US" && x.EventTimestamp.Year == dateToQuery.Year && x.EventTimestamp.Month == dateToQuery.Month && x.EventTimestamp.Day == dateToQuery.Day);
                         //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode);
-                        var events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp.Day == dt.Day);
+                        var events = session.Query<VaccinationEvent>().Where(x => x.EventTimestamp >= dateBeforeQuery && x.EventTimestamp <= dateToQuery);
                         foreach (var item in events)
                         {
                             Console.WriteLine("EventTimestamp {0}", item.EventTimestamp);
