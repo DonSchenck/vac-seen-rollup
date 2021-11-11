@@ -40,7 +40,7 @@ namespace vac_seen_rollup
                     using (IDocumentSession session = docstore.OpenSession())
                     {
                         DateTime dateToQuery = DateTime.Today.AddDays(i);
-                        DateTime dateAfterQuery = DateTime.Today.AddDays(i-1);
+                        DateTime dateAfterQuery = DateTime.Today.AddDays(i+1);
 
                         Console.WriteLine("About to query...");
                         Console.WriteLine("Date == {0}", dateToQuery);
