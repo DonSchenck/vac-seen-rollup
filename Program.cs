@@ -52,9 +52,9 @@ namespace vac_seen_rollup
                         foreach (var item in events)
                         {
                             Console.WriteLine("EventTimestamp {0}", item.EventTimestamp);
-                            Console.WriteLine("EventTimestamp.Year {0}", item.EventTimestamp.Year);
-                            Console.WriteLine("EventTimestamp.Month {0}", item.EventTimestamp.Month);
-                            Console.WriteLine("EventTimestamp.Day {0}", item.EventTimestamp.Day);
+                            //Console.WriteLine("EventTimestamp.Year {0}", item.EventTimestamp.Year);
+                            //Console.WriteLine("EventTimestamp.Month {0}", item.EventTimestamp.Month);
+                            //Console.WriteLine("EventTimestamp.Day {0}", item.EventTimestamp.Day);
                         }
                         countForDate = events.Count();
                         Console.WriteLine("Query done, returning {0} objects for {1}.", countForDate, yyyymmdd);
