@@ -25,7 +25,7 @@ namespace vac_seen_rollup
             // updating documents
             try {
                 // Update for the past 30 days
-                for (int i = 30; i >= 0; i--)
+                for (int i = -30; i == 0; i++)
                 {
                     string yyyymmdd = DateTime.Now.AddDays(i).ToString("yyyyMMdd");
                     Console.WriteLine("Today is {0}", yyyymmdd);
