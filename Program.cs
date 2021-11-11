@@ -40,14 +40,20 @@ namespace vac_seen_rollup
                     using (IDocumentSession session = docstore.OpenSession())
                     {
                         DateTime dateToQuery = DateTime.Today.AddDays(i);
-                        DateTime dateBeforeQuery = DateTime.Today.AddDays(i-1).AddTicks(-1);
+                        DateTime dateAfterQuery = DateTime.Today.AddDays(i-1);
 
                         Console.WriteLine("About to query...");
                         Console.WriteLine("Date == {0}", dateToQuery);
-                        Console.WriteLine("Date Before == {0}", dateBeforeQuery);
+                        Console.WriteLine("Date After == {0}", dateAfterQuery);
+
+                        //Date == 10 / 15 / 2021 00:00:00
+                        //Date Before == 10 / 13 / 2021 23:59:59
+
+
                         //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "US" && x.EventTimestamp.Year == dateToQuery.Year && x.EventTimestamp.Month == dateToQuery.Month && x.EventTimestamp.Day == dateToQuery.Day);
                         //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode);
-                        var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= dateToQuery && x.EventTimestamp <= dateBeforeQuery);
+
+                        var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= dateToQuery && x.EventTimestamp < dateAfterQuery);
                         foreach (var item in events)
                         {
                             Console.WriteLine("EventTimestamp {0}", item.EventTimestamp);
