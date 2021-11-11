@@ -27,7 +27,7 @@ namespace vac_seen_rollup
                 // Update for the past 30 days
                 for (int i = -30; i <= 0; i++)
                 {
-                    string yyyymmdd = DateTime.Now.AddDays(i).ToString("yyyyMMdd");
+                    string yyyymmdd = DateTime.Today.AddDays(i).ToString("yyyyMMdd");
                     Console.WriteLine("Today is {0}", yyyymmdd);
 
                     int countForDate = 0;
@@ -39,14 +39,14 @@ namespace vac_seen_rollup
                     // Open a session for querying
                     using (IDocumentSession session = docstore.OpenSession())
                     {
-                        DateTime dt = DateTime.Now.AddDays(i);
+                        DateTime dt = DateTime.Today.AddDays(i);
 
                         Console.WriteLine("About to query...");
-                        Console.WriteLine("Year == {0}", dt.Year.ToString());
-                        Console.WriteLine("Month == {0}", dt.Month.ToString());
-                        Console.WriteLine("Day == {0}", dt.Day.ToString());
-                        //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp.Year == dt.Year && x.EventTimestamp.Month == dt.Month && x.EventTimestamp.Day == dt.Day);
-                        var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "US");
+                        Console.WriteLine("Year == {0}", dt.Year);
+                        Console.WriteLine("Month == {0}", dt.Month);
+                        Console.WriteLine("Day == {0}", dt.Day);
+                        var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp.Year == dt.Year && x.EventTimestamp.Month == dt.Month && x.EventTimestamp.Day == dt.Day);
+                        //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == "US");
                         foreach (var item in events)
                         {
                             Console.WriteLine("EventTimestamp {0}", item.EventTimestamp);
