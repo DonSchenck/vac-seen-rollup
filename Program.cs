@@ -54,9 +54,8 @@ namespace vac_seen_rollup
                 using (var connection = new MySqlConnection(Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING")))
                 {
                     connection.Open();
-
                     using (var command = new MySqlCommand(upsertCmd, connection))
-                        command.ExecuteNonQueryAsync();
+                        command.ExecuteNonQuery();
                 }
             } catch (Exception e) {
                 throw e;
