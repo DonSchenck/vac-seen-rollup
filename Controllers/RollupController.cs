@@ -39,7 +39,7 @@ public class RollupController : Controller
             using (IDocumentSession session = docstore.OpenSession())
             {
                 DateTime dateToQuery = dateToRollup;
-                DateTime dateAfterQuery = dateToQuery.AddDays(i + 1);
+                DateTime dateAfterQuery = dateToQuery.AddDays(1);
 
                 Console.WriteLine("About to query...");
                 Console.WriteLine("Date == {0}", dateToQuery);
