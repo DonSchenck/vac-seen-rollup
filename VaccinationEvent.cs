@@ -1,14 +1,13 @@
-using System;
+﻿using System;
 
-namespace vac_seen_todb
+namespace vac_seen_rollup
 {
-   public class VaccinationEvent
+    class VaccinationEvent
     {
-        public Guid Id;
-        public String RecipientID;
+        public String? RecipientID;
         public DateTime EventTimestamp;
-        public string CountryCode;
-        public String VaccinationType;
+        public string? CountryCode;
+        public String? VaccinationType;
         public int ShotNumber;
     }
 }

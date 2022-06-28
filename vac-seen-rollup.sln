@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31717.71
+VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vac-seen-rollup", "vac-seen-rollup.csproj", "{FF4AFC6E-5C3F-4A45-B34E-C0B2968B93BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vac-seen-rollup", "vac-seen-rollup.csproj", "{AE3482C7-0FB4-4108-9A73-3A041C5CB73E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF4AFC6E-5C3F-4A45-B34E-C0B2968B93BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF4AFC6E-5C3F-4A45-B34E-C0B2968B93BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF4AFC6E-5C3F-4A45-B34E-C0B2968B93BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF4AFC6E-5C3F-4A45-B34E-C0B2968B93BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE3482C7-0FB4-4108-9A73-3A041C5CB73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3482C7-0FB4-4108-9A73-3A041C5CB73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3482C7-0FB4-4108-9A73-3A041C5CB73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3482C7-0FB4-4108-9A73-3A041C5CB73E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7FD9A47D-E982-40AD-AE41-8E8ACC847056}
+		SolutionGuid = {115CD3B2-ED11-46DB-8789-282BA92FB408}
 	EndGlobalSection
 EndGlobal
