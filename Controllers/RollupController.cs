@@ -17,6 +17,7 @@ public class RollupController : Controller
     [HttpPost]
     public async Task<ActionResult<int>> RollupEvents([FromForm] DateTime dateToRollup)
     {
+        string countryCode = "us";
         Console.WriteLine("REQUEST RECEIVED");
 
         // Get a count of vaccinations for the location.
@@ -28,7 +29,6 @@ public class RollupController : Controller
         try
         {
             string yyyymmdd = dateToRollup.ToString("yyyyMMdd");
-            string countryCode = "us";
             Console.WriteLine("Rolling up for {0}", yyyymmdd);
 
             int countForDate = 0;
