@@ -12,6 +12,8 @@ using Confluent.Kafka.SyncOverAsync;
 
 namespace vac_seen_rollup.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class RollupController : Controller
 {
     [HttpPost]
