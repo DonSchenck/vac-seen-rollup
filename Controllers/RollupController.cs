@@ -31,7 +31,7 @@ public class RollupController : Controller
         try
         {
             string yyyymmdd = dateToRollup.ToString("yyyyMMdd");
-            Console.WriteLine("Rolling up for {0}", yyyymmdd);
+            Console.WriteLine("Rolling up for {0}", dateToRollup.ToString());
 
             int countForDate = 0;
             string cs = Environment.GetEnvironmentVariable("MARTEN_CONNECTION_STRING");
@@ -47,6 +47,7 @@ public class RollupController : Controller
                 Console.WriteLine("About to query...");
                 Console.WriteLine("Date == {0}", dateToQuery);
                 Console.WriteLine("Date After == {0}", dateAfterQuery);
+                Console.WriteLine("Country Code == {0}", countryCode);
 
                 var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= dateToQuery && x.EventTimestamp < dateAfterQuery);
                 countForDate = events.Count();
