@@ -45,8 +45,9 @@ public class RollupController : Controller
                 DateTime dateAfterQuery = dateToQuery.AddDays(1);
 
                 Console.WriteLine("About to query...");
-                Console.WriteLine("Date == {0}", dateToQuery);
-                Console.WriteLine("Date After == {0}", dateAfterQuery);
+                Console.WriteLine("Year == {0}", dateToRollup.Year.ToString());
+                Console.WriteLine("Month == {0}", dateToRollup.Month.ToString());
+                Console.WriteLine("Day == {0}", dateToRollup.Day.ToString());
                 Console.WriteLine("Country Code == {0}", countryCode);
                 //EntityFunctions.TruncateTime(p.CreatedDate) == mydate)
                 //var events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= dateToQuery && x.EventTimestamp < dateAfterQuery);
