@@ -2,7 +2,7 @@
 
 namespace vac_seen_rollup
 {
-    class VaccinationEvent
+    public class VaccinationEvent
     {
         public String? id;
         public String? RecipientID;
