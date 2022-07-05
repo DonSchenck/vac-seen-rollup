@@ -51,7 +51,8 @@ public class RollupController : Controller
                 Console.WriteLine("Country Code == {0}", countryCode);
                 //EntityFunctions.TruncateTime(p.CreatedDate) == mydate)
                 //List<VaccinationEvent> events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode).ToList<VaccinationEvent>();
-                List<VaccinationEvent> events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp.Year == dateToRollup.Year && x.EventTimestamp.Month == dateToRollup.Month && x.EventTimestamp.Day == dateToRollup.Day).ToList<VaccinationEvent>();
+                List<VaccinationEvent> events = session.Query<VaccinationEvent>().ToList<VaccinationEvent>();
+                //List<VaccinationEvent> events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp.Year == dateToRollup.Year && x.EventTimestamp.Month == dateToRollup.Month && x.EventTimestamp.Day == dateToRollup.Day).ToList<VaccinationEvent>();
                 countForDate = events.Count;
                 
                 Console.WriteLine("Query done, returning {0} objects for {1} for location {2}.", countForDate, yyyymmdd, countryCode);
