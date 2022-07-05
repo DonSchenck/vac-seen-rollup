@@ -55,9 +55,6 @@ public class RollupController : Controller
                 countForDate = events.Count;
                 
                 Console.WriteLine("Query done, returning {0} objects for {1} for location {2}.", countForDate, yyyymmdd, countryCode);
-                if (events.Count > 0) {
-                    Console.WriteLine("Event Year is {0}", events[1].EventTimestamp.Year);
-                }
             }
 
             // UPSERT MariaDB database
