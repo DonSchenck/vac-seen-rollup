@@ -12,6 +12,7 @@
     <PackageReference Include="KubeServiceBinding.DotnetServiceBinding" Version="0.1.1" />
     <PackageReference Include="Marten" Version="5.6.0" />
     <PackageReference Include="MySqlConnector" Version="2.1.10" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
