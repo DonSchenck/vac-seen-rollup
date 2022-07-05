@@ -44,24 +44,13 @@ public class RollupController : Controller
                 DateTime dateToQuery = dateToRollup;
                 DateTime dateAfterQuery = dateToQuery.AddDays(1);
 
-                Console.WriteLine("About to query...");
-                Console.WriteLine("Year == {0}", dateToRollup.Year.ToString());
-                Console.WriteLine("Month == {0}", dateToRollup.Month.ToString());
-                Console.WriteLine("Day == {0}", dateToRollup.Day.ToString());
-                Console.WriteLine("Country Code == {0}", countryCode);
-                int searchYear = (int)dateToRollup.Year;
-                int searchMonth = (int)dateToRollup.Month;
-                int searchDay = (int)dateToRollup.Day;
-                //EntityFunctions.TruncateTime(p.CreatedDate) == mydate)
-                //List<VaccinationEvent> events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode).ToList<VaccinationEvent>();
-                //List<VaccinationEvent> events = session.Query<VaccinationEvent>().ToList<VaccinationEvent>();
-                //var from = new DateTimeOffset(searchYear, searchMonth, searchDay);
                 var from = new DateTimeOffset(dateToRollup);
                 var to = dateToRollup.AddDays(1).AddTicks(-1);
 
+                Console.WriteLine("About to query...");
+                Console.WriteLine("Country Code == {0}", countryCode);
+                Console.WriteLine("Querying from {0} to {1}", from.ToString(), to.ToString());  
                 var events = await session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= from && x.EventTimestamp <= to).ToListAsync();
-
-                //var events = await session.Query<VaccinationEvent>().Where(x => (int)x.EventTimestamp.Year == searchYear && (int)x.EventTimestamp.Month == searchMonth && (int)x.EventTimestamp.Day == searchDay).ToListAsync();
                 
                 countForDate = events.Count;
                 
