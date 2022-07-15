@@ -50,7 +50,8 @@ public class RollupController : Controller
                 Console.WriteLine("About to query...");
                 Console.WriteLine("Country Code == {0}", countryCode);
                 Console.WriteLine("Querying from {0} to {1}", from.ToString(), to.ToString());  
-                var events = await session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= from && x.EventTimestamp <= to).ToListAsync();
+                //var events = await session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= from && x.EventTimestamp <= to).ToListAsync();
+                List<VaccinationEvent> events = session.Query<VaccinationEvent>().Where(x => x.CountryCode == countryCode && x.EventTimestamp >= from && x.EventTimestamp <= to).ToList();
                 
                 countForDate = events.Count;
                 
