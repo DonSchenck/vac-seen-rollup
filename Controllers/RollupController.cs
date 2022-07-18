@@ -45,7 +45,7 @@ public class RollupController : Controller
                 DateTime dateAfterQuery = dateToQuery.AddDays(1);
 
                 var from = new DateTimeOffset(dateToRollup);
-                var to = dateToRollup.AddDays(1).AddTicks(-1);
+                var to = from.AddDays(1).AddTicks(-1);
 
                 Console.WriteLine("About to query...");
                 Console.WriteLine("Country Code == {0}", countryCode);
